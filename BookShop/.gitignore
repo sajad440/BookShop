@@ -1,0 +1,32 @@
+﻿# فایل‌های باینری و خروجی
+bin/
+obj/
+
+# فایل‌های پیکربندی کاربر و محیط توسعه
+*.user
+*.suo
+*.vscode/
+*.vs/
+
+# فایل‌های لاگ و گزارش
+logs/
+*.log
+App_Data/
+
+# پکیج‌های NuGet و فایل‌های موقت
+*.nupkg
+packages/
+project.lock.json
+
+# تنظیمات گیت و بیلدهای موقت
+!.gitignore
+.idea/
+.DS_Store
+Thumbs.db
+
+# مخفی کردن Secret Key و فایل‌های تنظیمات حساس
+appsettings.Development.json
+secrets.json
+
+# فایل‌های Docker و CI/CD اضافی
+docker-compose.override.yml
