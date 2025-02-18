@@ -1,0 +1,46 @@
+﻿@model bookShopModel.Book;
+@{
+    ViewData["Title"] = "Add Book";
+}
+
+<h2>@ViewData["Title"]</h2>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Fail"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Fail"]
+    </div>
+}
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Name" >Book Name</label>
+        <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Enter book name" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Quantity">Quantity</label>
+        <input type="number" class="form-control" asp-for="@Model.Quantity" placeholder="Enter quantity" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Genre">Genre</label>
+        <input type="text" class="form-control" asp-for="@Model.Genre" placeholder="Enter book genre" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Author">Author</label>
+        <input type="text" class="form-control" asp-for="@Model.Author" placeholder="Enter book price" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="@Model.Price">Price (in Toman)</label>
+        <input type="number" class="form-control" asp-for="@Model.Price" placeholder="Enter book price" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Book</button>
+</form>
