@@ -21,7 +21,9 @@ namespace bookShopModel
         public int Price { get; set; }
         [Required]
         public string Author { get; set; }
-        [Required]
-        public string Genre { get; set; }
+        
+       
+        public int GenreId { get; set; }
+        public Genre genre { get; set; }
     }
 }
