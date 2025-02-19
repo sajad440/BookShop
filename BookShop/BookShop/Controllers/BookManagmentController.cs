@@ -1,6 +1,7 @@
 ﻿using BookShopDataAccess;
 using bookShopModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace BookShop.Controllers
@@ -20,11 +21,19 @@ namespace BookShop.Controllers
         }
         public IActionResult Add()
         {
-            return View();
+            var model = new MainViewModel()
+            {
+                Book = new Book()
+                ,
+                Genres = _dbContext.genres.ToList()
+            };
+
+            return View(model);
         }
         [HttpPost]
         public IActionResult Add(Book book1)
         {
+
             if (book1 == null)
             {
                 TempData["Fail"] = "invalid input";
@@ -54,5 +63,18 @@ namespace BookShop.Controllers
             return RedirectToAction("Add");
         }
 
+        public IActionResult Show()
+        {
+            
+            var Books = _dbContext.books.AsEnumerable();
+            if(Books != null)
+            {
+
+                return View(Books  );
+            }
+            ViewData["Message"] = "There is nothing To Show";
+
+            return View();
+        }
     }
 }

@@ -8,5 +8,8 @@ namespace bookShopModel
 {
     public class MainViewModel
     {
+        public Book Book { get; set; }
+        public List<Genre> Genres { get; set; }  
+
     }
 }
