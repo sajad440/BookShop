@@ -21,6 +21,8 @@ namespace BookShop.Controllers
         }
         public IActionResult Add()
         {
+        //create a  new object of MainViewModel and send to view
+        //Books in MainViewModel cannot be empty so
             var model = new MainViewModel()
             {
                 Book = new Book()
@@ -31,7 +33,7 @@ namespace BookShop.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(Book book1)
+        public IActionResult Add(MainViewModel book1)
         {
 
             if (book1 == null)
@@ -44,7 +46,7 @@ namespace BookShop.Controllers
             {
                 try
                 {
-                    _dbContext.books.Add(book1);
+                    _dbContext.books.Add(book1.Book);
                     _dbContext.SaveChanges();
                     TempData["Success"] = "Book add successful";
                     return RedirectToAction("Add");
