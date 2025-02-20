@@ -30,8 +30,15 @@
 
     <div class="form-group">
         <label for="GenreId">Select Genre</label>
-        <select class="form-control" asp-for="@Model.Book.GenreId" asp-items="@(new SelectList(Model.Genres, "Id", "GenreName"))">
+        <select class="form-control" asp-for="@Model.Book.GenreId" onchange="console.log(this.value)" name="Book.GenreId">
             <option value="">-- Select a Genre --</option>
+           @{
+                foreach (var genre in Model.Genres)
+                {
+                    <option value="@genre.Id">@genre.GenreName</option>
+                }
+           }
+
         </select>
     </div>
 

@@ -22,7 +22,7 @@ namespace BookShopDataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Book>().HasOne(x => x.genre)
+            modelBuilder.Entity<Book>().HasOne(x => x.Genre)
                 .WithMany(g => g.Books)
                 .HasForeignKey(x => x.GenreId);
         }

@@ -1,0 +1,43 @@
+﻿@model List<bookShopModel.Genre>
+
+@{
+    ViewData["Title"] = "Genres List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (ViewData["Fail"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @ViewData["Fail"]
+    </div>
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Genre Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>@genre.Id</td>
+                <td>@genre.GenreName</td>
+                <td>
+                    <form method="get" asp-action="ShowBooks">
+                        <input type="hidden" name="id" value="@genre.Id" />
+                        <button type="submit" class="btn btn-info">View Books</button>
+                    </form>
+
+                    <form method="post" asp-action="Delete" onsubmit="return confirm('Are you sure?');">
+                        <input type="hidden" name="id" value="@genre.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

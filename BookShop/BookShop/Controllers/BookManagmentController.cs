@@ -1,6 +1,7 @@
 ﻿using BookShopDataAccess;
 using bookShopModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -32,16 +33,20 @@ namespace BookShop.Controllers
 
             return View(model);
         }
+     
         [HttpPost]
         public IActionResult Add(MainViewModel book1)
         {
+            Console.WriteLine($"Book Name: {book1.Book.Name}");
+            Console.WriteLine($"GenreId: {book1.Book.GenreId}"); // مقدار GenreId را بررسی کن
 
             if (book1 == null)
             {
                 TempData["Fail"] = "invalid input";
                 return RedirectToAction("Add");
             }
-
+            ModelState.Remove("Genres");
+            ModelState.Remove("Book.Genre");
             if (ModelState.IsValid)
             {
                 try
@@ -54,21 +59,18 @@ namespace BookShop.Controllers
                 catch (Exception ex)
                 {
                     TempData["Fail"] = "Book cannot  add";
-                    Console.WriteLine(ex.Message); 
+                    Console.WriteLine(ex.Message);
                 }
-            }
-            else
-            {
-                TempData["Fail"] = "Book not valid ";
             }
 
             return RedirectToAction("Add");
         }
 
+
         public IActionResult Show()
         {
-            
-            var Books = _dbContext.books.AsEnumerable();
+
+           var Books = _dbContext.books.Include(x=>x.Genre).ToList();
             if(Books != null)
             {
 

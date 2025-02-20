@@ -1,6 +1,65 @@
-﻿@if (ViewData["Success"] != null)
+﻿
+@model IEnumerable<bookShopModel.Book>
+
+@{
+    ViewData["Title"] = "Book List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Success"] != null)
 {
     <div class="alert alert-success text-center">
-        @ViewData["Success"]
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Fail"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Fail"]
+    </div>
+}
+
+@if (Model != null &&Model.Count()>0)
+{
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Name</td>
+                    <td>@book.Author</td>
+                    <td>@(book.Genre != null ? book.Genre.GenreName : "Unknown")</td>
+                    <td>@book.Price.ToString("N0") Toman</td>
+                    <td>@book.Quantity</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" asp-action="Delete" asp-controller="Book" style="display:inline;">
+                            <input type="hidden" name="id" value="@book.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info text-center">
+        No books found.
     </div>
 }

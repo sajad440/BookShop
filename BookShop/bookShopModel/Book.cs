@@ -24,6 +24,6 @@ namespace bookShopModel
         
        
         public int GenreId { get; set; }
-        public Genre genre { get; set; }
+        public Genre Genre { get; set; }
     }
 }
