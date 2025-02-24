@@ -37,14 +37,15 @@ namespace BookShop.Controllers
         [HttpPost]
         public IActionResult Add(MainViewModel book1)
         {
-            Console.WriteLine($"Book Name: {book1.Book.Name}");
-            Console.WriteLine($"GenreId: {book1.Book.GenreId}"); // مقدار GenreId را بررسی کن
+            
 
             if (book1 == null)
             {
                 TempData["Fail"] = "invalid input";
                 return RedirectToAction("Add");
             }
+            //we dont need validate Genres here
+            
             ModelState.Remove("Genres");
             ModelState.Remove("Book.Genre");
             if (ModelState.IsValid)
@@ -71,14 +72,40 @@ namespace BookShop.Controllers
         {
 
            var Books = _dbContext.books.Include(x=>x.Genre).ToList();
-            if(Books != null)
+            if (Books != null)
             {
 
-                return View(Books  );
+                return View(Books);
             }
-            ViewData["Message"] = "There is nothing To Show";
+            else
+            {
 
-            return View();
+
+                TempData["Message"] = "There is nothing To Show";
+
+                return View();
+            }
+        }
+        public IActionResult Delete(int id)
+        {
+            var deleted = _dbContext.books.FirstOrDefault(x => x.Id == id);
+
+            if (deleted != null)
+            {
+                try
+                {
+                    _dbContext.books.Remove(deleted);
+                    _dbContext.SaveChanges();
+                    return RedirectToAction("Show");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"message : {ex.Message}");
+                    
+                }
+            }
+            TempData["Fail"] = "There is no book to show";
+            return RedirectToAction("Show");
         }
     }
 }

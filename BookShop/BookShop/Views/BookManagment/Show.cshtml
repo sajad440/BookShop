@@ -21,6 +21,13 @@
     </div>
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger text-center">
+        @TempData["Message"]
+    </div>
+}
+
 @if (Model != null &&Model.Count()>0)
 {
     <table class="table table-bordered table-striped">
@@ -46,8 +53,8 @@
                     <td>@book.Price.ToString("N0") Toman</td>
                     <td>@book.Quantity</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-warning btn-sm">Edit</a>
-                        <form method="post" asp-action="Delete" asp-controller="Book" style="display:inline;">
+                        <a href="@Url.Action("Edit", "BookManagment", new { id = book.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" asp-action="Delete" asp-controller="BookManagment" style="display:inline;">
                             <input type="hidden" name="id" value="@book.Id" />
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
@@ -56,10 +63,5 @@
             }
         </tbody>
     </table>
-}
-else
-{
-    <div class="alert alert-info text-center">
-        No books found.
-    </div>
-}
+} 
+    

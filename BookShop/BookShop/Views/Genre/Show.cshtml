@@ -15,6 +15,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+
             <th>#</th>
             <th>Genre Name</th>
             <th>Actions</th>
@@ -27,7 +28,7 @@
                 <td>@genre.Id</td>
                 <td>@genre.GenreName</td>
                 <td>
-                    <form method="get" asp-action="ShowBooks">
+                    <form method="get" asp-action="Showbook">
                         <input type="hidden" name="id" value="@genre.Id" />
                         <button type="submit" class="btn btn-info">View Books</button>
                     </form>

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using BookShopDataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using bookShopModel;
 namespace BookShop
 {
     public class Program
@@ -15,7 +17,9 @@ namespace BookShop
                 options => options
                 .UseSqlServer(builder.Configuration
                 .GetConnectionString("DefaultConnection")));
-
+            builder.Services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<BookDbContext>()
+            .AddDefaultTokenProviders();
             builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
             .AddNegotiate();
 
@@ -41,7 +45,7 @@ namespace BookShop
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
