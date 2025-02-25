@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookShopDataAccess
 {
-    public class BookDbContext :IdentityDbContext<User>
+    public class BookDbContext :DbContext
 
     {
         public BookDbContext(DbContextOptions options) : base(options)
