@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using bookShopModel;
+using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace BookShopDataAccess
 {
-    public class BookDbContext :DbContext
+    public class BookDbContext :IdentityDbContext<IdentityUser>
 
     {
-        public BookDbContext(DbContextOptions options) : base(options)
-        {
+        public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
+        { 
         }
 
         public DbSet<Book> books{ get; set; }
